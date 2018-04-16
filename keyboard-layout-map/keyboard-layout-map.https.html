@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Keyboard Map basic tests</title>
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script>
+
+test(function() {
+  assert_not_equals(navigator.keyboard, undefined);
+  assert_true(navigator.keyboard instanceof Keyboard);
+  assert_equals(navigator.keyboard, navigator.keyboard);
+}, "navigator.keyboard exists");
+
+promise_test(function() {
+  const p = navigator.keyboard.getLayoutMap();
+  assert_true(p instanceof Promise);
+  return p;
+}, "navigator.keyboard.getLayoutMap() returns a Promise");
+
+promise_test(function() {
+  return navigator.keyboard.getLayoutMap()
+    .then(function(map) {
+      assert_true(map instanceof KeyboardLayoutMap);
+    });
+}, "navigator.keyboard.getLayoutMap() returns a KeyboardLayoutMap when successful");
+
+</script>
